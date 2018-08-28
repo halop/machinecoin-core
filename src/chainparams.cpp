@@ -11,7 +11,6 @@
 #include <utilstrencodings.h>
 
 #include <assert.h>
-#include <memory>
 
 #include <chainparamsseeds.h>
 
@@ -175,11 +174,10 @@ public:
         };
 
         chainTxData = ChainTxData{
-            // Data as of block c69870ed876b17ebcf582ca8cd6362de13ebd83c98556d6518abfa8b4d71a975 (height 506003).
-            1528024340, // * UNIX timestamp of last known number of transactions
-            593247,     // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            5.0       // * estimated number of transactions per second after that timestamp
+            // Data from rpc: getchaintxstats 506003 c69870ed876b17ebcf582ca8cd6362de13ebd83c98556d6518abfa8b4d71a975
+            /* nTime    */ 1528024340,
+            /* nTxCount */ 593247,
+            /* dTxRate  */ 5.0
         };
       
         // Masternodes
@@ -190,6 +188,9 @@ public:
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
+        
+        /* disable fallback fee on mainnet */
+        m_fallback_fee_enabled = false;
     }
 };
 
@@ -278,11 +279,10 @@ public:
         };
 
         chainTxData = ChainTxData{
-            // Data as of block 3c63f32416111dca75775eb0361b110be82f4603a83bb3f2e8d88326a5ccf2f3 (height 209).
-            0, // * UNIX timestamp of last known number of transactions
-            0,  // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            500.0         // * estimated number of transactions per second after that timestamp
+            // Data from rpc: getchaintxstats 0 72059c481cc49a2941cc36bd0f070abfe1ccc6e329534602dbdef555547e895f
+            /* nTime    */ 1528024340,
+            /* nTxCount */ 0,
+            /* dTxRate  */ 1.0
         };
       
         // Masternodes
@@ -293,6 +293,9 @@ public:
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
+        
+        /* enable fallback fee on testnet */
+        m_fallback_fee_enabled = true;
     }
 };
 
@@ -388,6 +391,9 @@ public:
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
         
         bech32_hrp = "rmc";
+      
+        /* enable fallback fee on regtest */
+        m_fallback_fee_enabled = true;
     }
 };
 

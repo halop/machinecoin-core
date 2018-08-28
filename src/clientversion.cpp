@@ -6,6 +6,7 @@
 
 #include <tinyformat.h>
 
+
 /**
  * Name of client reported in the 'version' message. Report the same name
  * for both machinecoind and machinecoin-core, to make it harder for attackers to
@@ -68,7 +69,7 @@ const std::string CLIENT_NAME("Octopus");
 
 const std::string CLIENT_BUILD(BUILD_DESC CLIENT_VERSION_SUFFIX);
 
-std::string FormatVersion(int nVersion)
+static std::string FormatVersion(int nVersion)
 {
     if (nVersion % 100 == 0)
         return strprintf("%d.%d.%d", nVersion / 1000000, (nVersion / 10000) % 100, (nVersion / 100) % 100);
@@ -81,7 +82,7 @@ std::string FormatFullVersion()
     return CLIENT_BUILD;
 }
 
-/** 
+/**
  * Format the subversion field according to BIP 14 spec (https://github.com/machinecoin/bips/blob/master/bip-0014.mediawiki) 
  */
 std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments)
