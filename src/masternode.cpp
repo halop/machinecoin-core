@@ -333,6 +333,7 @@ void CMasternode::UpdateLastPaid(const CBlockIndex *pindex, int nMaxBlocksToScan
                     LogPrint(MCLog::MN, "CMasternode::UpdateLastPaidBlock -- searching for block with payment to %s -- found new %d\n", vin.prevout.ToStringShort(), nBlockLastPaid);
                     return;
                 }
+            }   
         }
 
         if (BlockReading->pprev == NULL) { assert(BlockReading); break; }
